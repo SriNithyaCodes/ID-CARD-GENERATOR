@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Card Preview | Aurora University</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="loadPreview()">
+    <header style="padding: 1rem;">
+        <h1>ID Card Preview</h1>
+        <div style="margin-top: 10px;">
+            <a href="dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+            <button onclick="downloadPdf()" class="btn btn-primary">Download PDF</button>
+            <button onclick="window.print()" class="btn btn-secondary" style="background: var(--navy-blue);">Print
+                Card</button>
+        </div>
+    </header>
+
+    <div class="id-card-container">
+        <!-- FRONT SIDE -->
+        <div class="id-card card-front">
+            <div class="header-strip">
+                <h2>AURORA DEEMED TO BE UNIVERSITY</h2>
+                <p>Aurora Higher Education and Research Academy</p>
+                <p>School of Engineering</p>
+            </div>
+            <img src="https://via.placeholder.com/150" alt="Student Photo" class="student-photo" id="previewPhoto">
+            <div class="student-details">
+                <h3 id="previewName">Student Name</h3>
+                <p><strong>Roll No:</strong> <span id="previewRoll">AUXXXXX</span></p>
+                <p><strong>Course:</strong> <span id="previewCourse">N/A</span></p>
+                <p><strong>Academic Years:</strong> <span id="previewYears">2024-2028</span></p>
+            </div>
+            <div class="barcode-area">
+                <img id="previewBarcode" src="" alt="Barcode" style="width: 100%; height: auto;">
+            </div>
+        </div>
+
+        <!-- BACK SIDE -->
+        <div class="id-card card-back">
+            <div class="back-row"><span>Address:</span>
+                <p id="previewAddress">Address here...</p>
+            </div>
+            <div class="back-row"><span>Blood Group:</span> <span id="previewBlood">O+</span></div>
+            <div class="back-row"><span>Emergency Contact:</span> <span id="previewContact">+91 XXXXXXXXXX</span></div>
+            <div class="back-row"><span>Issued Date:</span> <span id="previewIssueDate">01/01/2026</span></div>
+
+            <div class="signature-area">
+                <p>Registrar Signature</p>
+            </div>
+
+            <div class="back-footer">
+                <p><strong>Aurora Higher Education and Research Academy</strong></p>
+                <p>Uppal, Hyderabad – 500098</p>
+                <p>Phone: +91 040-XXXXXXX | www.aurora.edu.in</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentId = urlParams.get('id');
+
+        async function loadPreview() {
+            if (!studentId) return;
+
+            try {
+                const response = await fetch(`/api/students/${studentId}`);
+                const s = await response.json();
+
+                document.getElementById('previewName').innerText = s.fullName;
+                document.getElementById('previewRoll').innerText = s.rollNumber;
+                document.getElementById('previewCourse').innerText = s.course;
+                document.getElementById('previewYears').innerText = s.academicYear;
+                document.getElementById('previewAddress').innerText = s.address;
+                document.getElementById('previewBlood').innerText = s.bloodGroup;
+                document.getElementById('previewContact').innerText = s.emergencyContact;
+                document.getElementById('previewIssueDate').innerText = s.issueDate;
+
+                // Set Barcode
+                document.getElementById('previewBarcode').src = `/api/students/${studentId}/barcode`;
+            } catch (error) {
+                console.error('Error loading preview:', error);
+            }
+        }
+
+        async function downloadPdf() {
+            window.location.href = `/api/students/${studentId}/pdf`;
+        }
+    </script>
+</body>
+
+</html>
