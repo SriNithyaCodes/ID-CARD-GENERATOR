@@ -20,7 +20,7 @@ header {
     color: white;
     padding: 2rem;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
@@ -67,7 +67,7 @@ header p {
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* ID Card Design */
@@ -85,7 +85,7 @@ header p {
     background: white;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     position: relative;
     border: 1px solid #ddd;
 }
@@ -200,10 +200,11 @@ table {
     background: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-th, td {
+th,
+td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #eee;
@@ -214,6 +215,172 @@ th {
     color: white;
 }
 
-tr:hover {
-    background-color: #fcfcfc;
+
+/* --- Professional Admin Login Styles --- */
+
+.login-page-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at top left, #2c3e50, #000);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Animated background elements */
+.login-page-body::before,
+.login-page-body::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-red), var(--navy-blue));
+    filter: blur(80px);
+    z-index: 0;
+    opacity: 0.4;
+    animation: float 20s infinite alternate;
+}
+
+.login-page-body::before {
+    top: -100px;
+    left: -100px;
+}
+
+.login-page-body::after {
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(50px, 50px);
+    }
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 420px;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-header h2 {
+    color: var(--navy-blue);
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.login-header p {
+    color: #64748b;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: #f8fafc;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.1);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary-red), #a00d25);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(200, 16, 46, 0.2);
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(200, 16, 46, 0.3);
+    filter: brightness(1.1);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.university-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.university-logo-container .logo {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-red);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 900;
+    font-size: 24px;
+    box-shadow: 0 10px 15px -3px rgba(200, 16, 46, 0.4);
 }
