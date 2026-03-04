@@ -63,16 +63,25 @@ public class StudentService {
         PdfDocument pdf = new PdfDocument(writer);
         Document document = new Document(pdf, PageSize.A4);
 
-        // Simple PDF Generation Logic - Front & Back (Mockup for now, real layout can be complex)
-        document.add(new Paragraph("AURORA DEEMED TO BE UNIVERSITY").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(18));
+        // Simple PDF Generation Logic - Front & Back (Mockup for now, real layout can
+        // be complex)
+        document.add(new Paragraph("AURORA DEEMED TO BE UNIVERSITY").setTextAlignment(TextAlignment.CENTER).setBold()
+                .setFontSize(18));
         document.add(new Paragraph("School of Engineering").setTextAlignment(TextAlignment.CENTER).setFontSize(14));
         document.add(new Paragraph("\n"));
-        
+
+        // Add Photo if exists
+        if (student.getPhotoData() != null) {
+            Image photo = new Image(ImageDataFactory.create(student.getPhotoData()));
+            photo.setWidth(100).setHeight(100);
+            document.add(photo.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER));
+        }
+
         document.add(new Paragraph("Name: " + student.getFullName()));
         document.add(new Paragraph("Roll No: " + student.getRollNumber()));
         document.add(new Paragraph("Course: " + student.getCourse()));
         document.add(new Paragraph("Academic Year: " + student.getAcademicYear()));
-        
+
         // Add Barcode
         byte[] barcodeBytes = generateBarcode(student.getRollNumber(), 200, 50);
         Image barcodeImage = new Image(ImageDataFactory.create(barcodeBytes));

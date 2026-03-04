@@ -1,61 +1,174 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ID Card Preview | Aurora University</title>
+    <!-- Premium Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #C8102E;
+            --primary-dark: #8b0a1e;
+            --secondary: #000080;
+            --bg-light: #f8fafc;
+            --text-main: #0f172a;
+            --text-dim: #475569;
+            --glass-border: rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .mesh-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 100% 100%, rgba(0, 0, 128, 0.03) 0%, transparent 40%),
+                linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 2.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: var(--text-main);
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .btn {
+            padding: 0.85rem 1.75rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dim);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            box-shadow: 0 10px 20px rgba(200, 16, 46, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 15px 30px rgba(200, 16, 46, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .id-card-wrap {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 0 5rem;
+        }
+
+        /* Override style.css for better harmony if needed, but keeping original card sizing */
+    </style>
 </head>
 
 <body onload="loadPreview()">
-    <header style="padding: 1rem;">
-        <h1>ID Card Preview</h1>
-        <div style="margin-top: 10px;">
-            <a href="dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+    <div class="mesh-background"></div>
+    <header>
+        <h1>Credential Preview</h1>
+        <div class="action-group">
+            <a href="dashboard.html" class="btn btn-secondary">Hub</a>
             <button onclick="downloadPdf()" class="btn btn-primary">Download PDF</button>
-            <button onclick="window.print()" class="btn btn-secondary" style="background: var(--navy-blue);">Print
-                Card</button>
+            <button onclick="window.print()" class="btn btn-secondary">Print Card</button>
         </div>
     </header>
 
-    <div class="id-card-container">
-        <!-- FRONT SIDE -->
-        <div class="id-card card-front">
-            <div class="header-strip">
-                <h2>AURORA DEEMED TO BE UNIVERSITY</h2>
-                <p>Aurora Higher Education and Research Academy</p>
-                <p>School of Engineering</p>
-            </div>
-            <img src="https://via.placeholder.com/150" alt="Student Photo" class="student-photo" id="previewPhoto">
-            <div class="student-details">
-                <h3 id="previewName">Student Name</h3>
-                <p><strong>Roll No:</strong> <span id="previewRoll">AUXXXXX</span></p>
-                <p><strong>Course:</strong> <span id="previewCourse">N/A</span></p>
-                <p><strong>Academic Years:</strong> <span id="previewYears">2024-2028</span></p>
-            </div>
-            <div class="barcode-area">
-                <img id="previewBarcode" src="" alt="Barcode" style="width: 100%; height: auto;">
-            </div>
-        </div>
-
-        <!-- BACK SIDE -->
-        <div class="id-card card-back">
-            <div class="back-row"><span>Address:</span>
-                <p id="previewAddress">Address here...</p>
-            </div>
-            <div class="back-row"><span>Blood Group:</span> <span id="previewBlood">O+</span></div>
-            <div class="back-row"><span>Emergency Contact:</span> <span id="previewContact">+91 XXXXXXXXXX</span></div>
-            <div class="back-row"><span>Issued Date:</span> <span id="previewIssueDate">01/01/2026</span></div>
-
-            <div class="signature-area">
-                <p>Registrar Signature</p>
+    <div class="id-card-wrap">
+        <div class="id-card-container">
+            <!-- FRONT SIDE -->
+            <div class="id-card card-front">
+                <div class="header-strip">
+                    <h2>AURORA DEEMED TO BE UNIVERSITY</h2>
+                    <p>Aurora Higher Education and Research Academy</p>
+                    <p>School of Engineering</p>
+                </div>
+                <img src="/api/students/${studentId}/photo" alt="Student Photo" class="student-photo" id="previewPhoto"
+                    onerror="this.src='https://via.placeholder.com/150'">
+                <div class="student-details">
+                    <h3 id="previewName">Student Name</h3>
+                    <p><strong>Roll No:</strong> <span id="previewRoll">AUXXXXX</span></p>
+                    <p><strong>Course:</strong> <span id="previewCourse">N/A</span></p>
+                    <p><strong>Academic Years:</strong> <span id="previewYears">2024-2028</span></p>
+                </div>
+                <div class="barcode-area">
+                    <img id="previewBarcode" src="" alt="Barcode" style="width: 100%; height: auto;">
+                </div>
             </div>
 
-            <div class="back-footer">
-                <p><strong>Aurora Higher Education and Research Academy</strong></p>
-                <p>Uppal, Hyderabad – 500098</p>
-                <p>Phone: +91 040-XXXXXXX | www.aurora.edu.in</p>
+            <!-- BACK SIDE -->
+            <div class="id-card card-back">
+                <div class="back-row"><span>Address:</span>
+                    <p id="previewAddress">Address here...</p>
+                </div>
+                <div class="back-row"><span>Blood Group:</span> <span id="previewBlood">O+</span></div>
+                <div class="back-row"><span>Emergency Contact:</span> <span id="previewContact">+91 XXXXXXXXXX</span>
+                </div>
+                <div class="back-row"><span>Issued Date:</span> <span id="previewIssueDate">01/01/2026</span></div>
+
+                <div class="signature-area">
+                    <p>Registrar Signature</p>
+                </div>
+
+                <div class="back-footer">
+                    <p><strong>Aurora Higher Education and Research Academy</strong></p>
+                    <p>Uppal, Hyderabad – 500098</p>
+                    <p>Phone: +91 040-XXXXXXX | www.aurora.edu.in</p>
+                </div>
             </div>
         </div>
     </div>

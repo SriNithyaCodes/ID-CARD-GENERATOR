@@ -35,16 +35,18 @@ public class Student {
     @Column(name = "issue_date", nullable = false)
     private LocalDate issueDate;
 
-    @Column(name = "photo_path")
-    private String photoPath;
+    @Lob
+    @Column(name = "photo_data", columnDefinition = "LONGBLOB")
+    private byte[] photoData;
 
     // ===== CONSTRUCTORS =====
 
-    public Student() {}
+    public Student() {
+    }
 
     public Student(Long id, String fullName, String rollNumber, String course,
-                   String academicYear, String address, String bloodGroup,
-                   String emergencyContact, LocalDate issueDate, String photoPath) {
+            String academicYear, String address, String bloodGroup,
+            String emergencyContact, LocalDate issueDate, byte[] photoData) {
         this.id = id;
         this.fullName = fullName;
         this.rollNumber = rollNumber;
@@ -54,38 +56,88 @@ public class Student {
         this.bloodGroup = bloodGroup;
         this.emergencyContact = emergencyContact;
         this.issueDate = issueDate;
-        this.photoPath = photoPath;
+        this.photoData = photoData;
     }
 
     // ===== GETTERS AND SETTERS =====
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getRollNumber() { return rollNumber; }
-    public void setRollNumber(String rollNumber) { this.rollNumber = rollNumber; }
+    public String getFullName() {
+        return fullName;
+    }
 
-    public String getCourse() { return course; }
-    public void setCourse(String course) { this.course = course; }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-    public String getAcademicYear() { return academicYear; }
-    public void setAcademicYear(String academicYear) { this.academicYear = academicYear; }
+    public String getRollNumber() {
+        return rollNumber;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public void setRollNumber(String rollNumber) {
+        this.rollNumber = rollNumber;
+    }
 
-    public String getBloodGroup() { return bloodGroup; }
-    public void setBloodGroup(String bloodGroup) { this.bloodGroup = bloodGroup; }
+    public String getCourse() {
+        return course;
+    }
 
-    public String getEmergencyContact() { return emergencyContact; }
-    public void setEmergencyContact(String emergencyContact) { this.emergencyContact = emergencyContact; }
+    public void setCourse(String course) {
+        this.course = course;
+    }
 
-    public LocalDate getIssueDate() { return issueDate; }
-    public void setIssueDate(LocalDate issueDate) { this.issueDate = issueDate; }
+    public String getAcademicYear() {
+        return academicYear;
+    }
 
-    public String getPhotoPath() { return photoPath; }
-    public void setPhotoPath(String photoPath) { this.photoPath = photoPath; }
+    public void setAcademicYear(String academicYear) {
+        this.academicYear = academicYear;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public String getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(String emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    public LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public byte[] getPhotoData() {
+        return photoData;
+    }
+
+    public void setPhotoData(byte[] photoData) {
+        this.photoData = photoData;
+    }
 }
