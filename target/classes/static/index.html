@@ -141,6 +141,28 @@
             /* Dark gray for description */
         }
 
+        .hero-logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.1));
+            animation: fadeInDown 1.2s ease-out;
+            position: relative;
+            z-index: 15;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .premium-btn {
             padding: 20px 50px;
             background: linear-gradient(135deg, #C8102E, #a00d25);
@@ -279,6 +301,7 @@
             <div class="shape shape-2"></div>
 
             <div class="hero-content">
+                <img src="images/aurora.png" alt="Aurora University Logo" class="hero-logo">
                 <h1><span style="color: var(--navy-blue);">AURORA</span> <span style="color: var(--primary-red);">DEEMED
                         TO BE</span> <span style="color: var(--navy-blue);">UNIVERSITY</span></h1>
                 <p class="hero-tagline">"AURORA HIGHER EDUCATION AND RESEARCH ACADEMY"</p>
