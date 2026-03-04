@@ -1,53 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurora University | ID Card Generator</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header>
-        <h1>AURORA DEEMED TO BE UNIVERSITY</h1>
-        <p>"Temple of Learning"</p>
-    </header>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #C8102E;
+            --navy-blue: #000080;
+            --accent-red: #FF4D4D;
+            --white: #FFFFFF;
+            --light-gray: #f8fafc;
+            --dark-text: #1e293b;
+            --premium-gradient: linear-gradient(135deg, #C8102E, #000080);
+        }
 
-    <main style="text-align: center; padding: 50px;">
-        <section>
-            <h2>AI Powered University ID Card System</h2>
-            <p style="max-width: 800px; margin: 20px auto; line-height: 1.6;">
-                Welcome to the Aurora University ID Card Portal. This system provides a seamless way for administrators to generate, preview, and print high-quality student identification cards.
-            </p>
-            <div class="btn-container">
-                <a href="login.html" class="btn btn-primary">Login to Admin Dashboard</a>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .landing-hero {
+            background: url('college.jpeg') no-repeat center center / cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .landing-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            /* Semi-transparent white overlay */
+            z-index: 1;
+        }
+
+        /* Animated background shapes - lowered opacity to not clash with image */
+        .shape {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.2;
+            z-index: 2;
+            border-radius: 50%;
+            animation: float 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-red);
+            top: -100px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--navy-blue);
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(100px, 50px) scale(1.1);
+            }
+        }
+
+        .hero-content {
+            z-index: 10;
+            max-width: 1000px;
+            animation: slideUp 1s ease-out;
+            color: black;
+            /* Explicitly set text to black */
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            color: #000;
+            /* Solid black for title */
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 3vw, 1.8rem);
+            color: #000;
+            /* Dark black for the tagline as requested */
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .hero-description {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #333;
+            /* Dark gray for description */
+        }
+
+        .premium-btn {
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #C8102E, #a00d25);
+            color: white;
+            text-decoration: none;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px -10px rgba(200, 16, 46, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 50px -15px rgba(200, 16, 46, 0.7);
+        }
+
+        .premium-btn:hover::before {
+            left: 100%;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 100px 5%;
+            background: #f8fafc;
+            /* Light gray background */
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background: white;
+            /* Solid white for contrast on light gray */
+            border: 1px solid #e2e8f0;
+            padding: 50px 40px;
+            border-radius: 32px;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+            text-align: center;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            /* Soft, light shadow */
+        }
+
+        .feature-card:hover {
+            background: white;
+            transform: translateY(-20px);
+            border-color: var(--primary-red);
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(200, 16, 46, 0.15);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--accent-red);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotate(10deg) scale(1.1);
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .feature-card h4 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            /* Dark text for light mode */
+        }
+
+        .feature-card p {
+            color: #64748b;
+            /* Slate gray for readability */
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            padding: 80px 20px;
+            background: #f1f5f9;
+            /* Light footer background */
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer-university {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #1e293b;
+            /* Dark footer text */
+            text-transform: uppercase;
+        }
+
+        .footer-text {
+            color: #475569;
+            /* Dark gray for footer secondary text */
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="landing-hero">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+
+            <div class="hero-content">
+                <h1><span style="color: var(--navy-blue);">AURORA</span> <span style="color: var(--primary-red);">DEEMED
+                        TO BE</span> <span style="color: var(--navy-blue);">UNIVERSITY</span></h1>
+                <p class="hero-tagline">"AURORA HIGHER EDUCATION AND RESEARCH ACADEMY"</p>
+                <p class="hero-description">
+                    Experience the future of campus administration with our AI-Powered ID Card System.
+                    Streamlined, secure, and professional generation at your fingertips.
+                </p>
+                <div class="btn-container">
+                    <a href="login.html" class="premium-btn">
+                        <span>Get Started</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </section>
 
-        <section style="margin-top: 80px;">
-            <h3>Key Features</h3>
-            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px;">
-                <div style="background: white; padding: 20px; border-radius: 10px; width: 250px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                    <h4>Auto-Generation</h4>
-                    <p>Instant profile to ID card transformation with one click.</p>
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
                 </div>
-                <div style="background: white; padding: 20px; border-radius: 10px; width: 250px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                    <h4>Barcode Support</h4>
-                    <p>Automatic roll-number based barcode generation for every student.</p>
+                <h4>Auto-Generation</h4>
+                <p>Convert student profiles into high-quality ID cards instantly using our intelligent automation
+                    engine.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+                        <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+                        <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+                        <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                        <line x1="8" y1="7" x2="8" y2="17"></line>
+                        <line x1="12" y1="7" x2="12" y2="17"></line>
+                        <line x1="16" y1="7" x2="16" y2="17"></line>
+                    </svg>
                 </div>
-                <div style="background: white; padding: 20px; border-radius: 10px; width: 250px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                    <h4>Print Ready</h4>
-                    <p>High resolution PDF downloads ready for professional printing.</p>
+                <h4>Barcode Support</h4>
+                <p>Every ID card comes pre-integrated with roll-number based barcodes for seamless campus tracking.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
                 </div>
+                <h4>Print Ready</h4>
+                <p>Generate high-resolution, professional-grade PDF files optimized for mass production and printing.
+                </p>
             </div>
         </section>
     </main>
 
-    <footer style="background-color: var(--navy-blue); color: white; padding: 30px; text-align: center; margin-top: 50px;">
-        <p>&copy; 2026 Aurora Higher Education and Research Academy. All Rights Reserved.</p>
-        <p>Uppal, Hyderabad – 500098 | Phone: +91 040-XXXXXXX | Website: www.aurora.edu.in</p>
+    <footer>
+        <div class="footer-university"><span style="color: var(--navy-blue);">AURORA</span> <span
+                style="color: var(--primary-red);">DEEMED TO BE</span> <span
+                style="color: var(--navy-blue);">UNIVERSITY</span></div>
+        <p class="footer-text">&copy; 2026 Aurora Higher Education and Research Academy. All Rights Reserved.</p>
+        <p class="footer-text">Uppal, Hyderabad – 500098 | Phone: +91 040-XXXXXXX</p>
+        <p class="footer-text" style="margin-top: 20px; font-size: 0.8rem; opacity: 0.4;">Designed for Excellence in
+            Education</p>
     </footer>
 </body>
+
 </html>
