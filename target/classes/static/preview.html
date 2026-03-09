@@ -137,7 +137,7 @@
                     <p>Aurora Higher Education and Research Academy</p>
                     <p>School of Engineering</p>
                 </div>
-                <img src="/api/students/${studentId}/photo" alt="Student Photo" class="student-photo" id="previewPhoto"
+                <img id="previewPhoto" class="student-photo" alt="Student Photo"
                     onerror="this.src='https://via.placeholder.com/150'">
                 <div class="student-details">
                     <h3 id="previewName">Student Name</h3>
@@ -152,22 +152,26 @@
 
             <!-- BACK SIDE -->
             <div class="id-card card-back">
-                <div class="back-row"><span>Address:</span>
+                <div class="back-row"><span>Address</span>
                     <p id="previewAddress">Address here...</p>
                 </div>
-                <div class="back-row"><span>Blood Group:</span> <span id="previewBlood">O+</span></div>
-                <div class="back-row"><span>Emergency Contact:</span> <span id="previewContact">+91 XXXXXXXXXX</span>
+                <div class="back-row"><span>Blood Group</span> <span id="previewBlood">O+</span></div>
+                <div class="back-row"><span>Emergency Contact No</span> <span id="previewContact">+91 XXXXXXXXXX</span>
                 </div>
-                <div class="back-row"><span>Issued Date:</span> <span id="previewIssueDate">01/01/2026</span></div>
+                <div class="back-row"><span>Issued on <span id="previewIssueDate">01/01/2026</span></span></div>
 
                 <div class="signature-area">
-                    <p>Registrar Signature</p>
+                    <img src="images/signature.png" alt="Registrar Signature">
+                    <p>Registrar</p>
                 </div>
 
                 <div class="back-footer">
-                    <p><strong>Aurora Higher Education and Research Academy</strong></p>
-                    <p>Uppal, Hyderabad – 500098</p>
-                    <p>Phone: +91 040-XXXXXXX | www.aurora.edu.in</p>
+                    <div class="uni-name">Aurora Higher Education and Research Academy</div>
+                    <div class="uni-subtitle">(Deemed-to-be University)</div>
+                    <div class="address-info">
+                        Uppal, Hyderabad - 500098. Telangana<br>
+                        +91 9100123456 &nbsp; www.aurora.edu.in
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,6 +196,7 @@
                 document.getElementById('previewBlood').innerText = s.bloodGroup;
                 document.getElementById('previewContact').innerText = s.emergencyContact;
                 document.getElementById('previewIssueDate').innerText = s.issueDate;
+
 
                 // Set Barcode
                 document.getElementById('previewBarcode').src = `/api/students/${studentId}/barcode`;

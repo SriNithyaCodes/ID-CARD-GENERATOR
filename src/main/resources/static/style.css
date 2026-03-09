@@ -311,20 +311,44 @@ body {
 }
 
 .back-row {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
-.back-row span {
-    font-weight: bold;
+.back-row span:first-child {
+    font-weight: 500;
     color: var(--primary-red);
+    display: block;
+    margin-bottom: 2px;
+}
+
+.back-row p,
+.back-row span:last-child {
+    color: #000;
+    font-weight: 400;
+    margin: 0;
 }
 
 .signature-area {
-    margin-top: 50px;
+    margin-top: auto;
+    margin-bottom: 60px;
     text-align: right;
-    font-style: italic;
-    border-top: 1px solid #ccc;
-    padding-top: 5px;
+    padding-right: 20px;
+}
+
+.signature-area img {
+    display: block;
+    margin-left: auto;
+    margin-bottom: 2px;
+    max-height: 45px;
+    max-width: 100px;
+    width: auto;
+}
+
+.signature-area p {
+    font-size: 0.9rem;
+    color: #000;
+    font-weight: 500;
+    margin: 0;
 }
 
 .back-footer {
@@ -332,11 +356,31 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #f9f9f9;
-    padding: 15px;
+    background-color: white;
+    padding: 15px 10px;
     text-align: center;
     font-size: 0.75rem;
-    border-top: 2px solid var(--primary-red);
+    border-top: 2px solid #ddd;
+}
+
+.back-footer .uni-name {
+    color: var(--navy-blue);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.back-footer .uni-subtitle {
+    color: var(--primary-red);
+    font-weight: 700;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+}
+
+.back-footer .address-info {
+    color: #333;
+    line-height: 1.4;
 }
 
 /* Dashboard Table */
