@@ -9,7 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/students")
@@ -21,6 +26,8 @@ public class StudentController {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    private static final String UPLOAD_DIR = "C:/Users/Nithya/OneDrive/Desktop/2nd year term 3/JAVA PROJECT/ID CARD PHOTOS/";
 
     @GetMapping
     public List<Student> getAllStudents() {
@@ -53,7 +60,14 @@ public class StudentController {
 
         MultipartFile photo = request.getFile("photo");
         if (photo != null && !photo.isEmpty()) {
-            student.setPhotoData(photo.getBytes());
+            File dir = new File(UPLOAD_DIR);
+            if (!dir.exists())
+                dir.mkdirs();
+
+            String fileName = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
+            Path path = Paths.get(UPLOAD_DIR + fileName);
+            Files.write(path, photo.getBytes());
+            student.setPhotoPath(path.toString());
         }
 
         return studentService.saveStudent(student);
@@ -62,9 +76,16 @@ public class StudentController {
     @GetMapping("/{id}/photo")
     public ResponseEntity<byte[]> getStudentPhoto(@PathVariable Long id) {
         return studentService.getStudentById(id)
-                .map(s -> ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_JPEG)
-                        .body(s.getPhotoData()))
+                .map(s -> {
+                    try {
+                        byte[] photoBytes = Files.readAllBytes(Paths.get(s.getPhotoPath()));
+                        return ResponseEntity.ok()
+                                .contentType(MediaType.IMAGE_JPEG)
+                                .body(photoBytes);
+                    } catch (Exception e) {
+                        return ResponseEntity.notFound().<byte[]>build();
+                    }
+                })
                 .orElse(ResponseEntity.notFound().build());
     }
 

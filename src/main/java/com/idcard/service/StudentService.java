@@ -16,6 +16,8 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -71,8 +73,9 @@ public class StudentService {
         document.add(new Paragraph("\n"));
 
         // Add Photo if exists
-        if (student.getPhotoData() != null) {
-            Image photo = new Image(ImageDataFactory.create(student.getPhotoData()));
+        if (student.getPhotoPath() != null) {
+            byte[] photoBytes = Files.readAllBytes(Paths.get(student.getPhotoPath()));
+            Image photo = new Image(ImageDataFactory.create(photoBytes));
             photo.setWidth(100).setHeight(100);
             document.add(photo.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER));
         }

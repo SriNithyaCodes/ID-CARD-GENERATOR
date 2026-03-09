@@ -196,6 +196,7 @@
                 document.getElementById('previewBlood').innerText = s.bloodGroup;
                 document.getElementById('previewContact').innerText = s.emergencyContact;
                 document.getElementById('previewIssueDate').innerText = s.issueDate;
+                document.getElementById('previewPhoto').src = `/api/students/${studentId}/photo`;
 
 
                 // Set Barcode

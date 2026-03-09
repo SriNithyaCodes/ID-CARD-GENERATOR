@@ -35,9 +35,8 @@ public class Student {
     @Column(name = "issue_date", nullable = false)
     private LocalDate issueDate;
 
-    @Lob
-    @Column(name = "photo_data", columnDefinition = "LONGBLOB")
-    private byte[] photoData;
+    @Column(name = "photo_path")
+    private String photoPath;
 
     // ===== CONSTRUCTORS =====
 
@@ -46,7 +45,7 @@ public class Student {
 
     public Student(Long id, String fullName, String rollNumber, String course,
             String academicYear, String address, String bloodGroup,
-            String emergencyContact, LocalDate issueDate, byte[] photoData) {
+            String emergencyContact, LocalDate issueDate, String photoPath) {
         this.id = id;
         this.fullName = fullName;
         this.rollNumber = rollNumber;
@@ -56,7 +55,7 @@ public class Student {
         this.bloodGroup = bloodGroup;
         this.emergencyContact = emergencyContact;
         this.issueDate = issueDate;
-        this.photoData = photoData;
+        this.photoPath = photoPath;
     }
 
     // ===== GETTERS AND SETTERS =====
@@ -133,11 +132,11 @@ public class Student {
         this.issueDate = issueDate;
     }
 
-    public byte[] getPhotoData() {
-        return photoData;
+    public String getPhotoPath() {
+        return photoPath;
     }
 
-    public void setPhotoData(byte[] photoData) {
-        this.photoData = photoData;
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }
