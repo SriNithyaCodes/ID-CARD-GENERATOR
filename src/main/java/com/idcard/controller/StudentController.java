@@ -41,9 +41,10 @@ public class StudentController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Student createStudent(org.springframework.web.multipart.MultipartHttpServletRequest request)
             throws Exception {
+        System.out.println("Received registration request for: " + request.getParameter("fullName"));
         Student student = new Student();
         student.setFullName(request.getParameter("fullName"));
         student.setRollNumber(request.getParameter("rollNumber"));
@@ -68,6 +69,11 @@ public class StudentController {
             Path path = Paths.get(UPLOAD_DIR + fileName);
             Files.write(path, photo.getBytes());
             student.setPhotoPath(path.toString());
+        }
+
+        if (studentService.getStudentByRollNumber(student.getRollNumber()).isPresent()) {
+            throw new RuntimeException(
+                    "Roll number '" + student.getRollNumber() + "' is already registered to another student.");
         }
 
         return studentService.saveStudent(student);

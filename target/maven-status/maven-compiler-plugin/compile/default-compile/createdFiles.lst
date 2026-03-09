@@ -1,5 +1,5 @@
 com\idcard\repository\StudentRepository.class
 com\idcard\IdCardGeneratorApplication.class
-com\idcard\service\StudentService.class
 com\idcard\controller\StudentController.class
+com\idcard\service\StudentService.class
 com\idcard\entity\Student.class

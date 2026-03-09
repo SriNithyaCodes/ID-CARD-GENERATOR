@@ -376,7 +376,8 @@
                     alert('Student added successfully!');
                     window.location.href = 'dashboard.html';
                 } else {
-                    alert('Failed to add student. Check console for details.');
+                    const errorData = await response.json();
+                    alert(`Failed to add student: ${errorData.error}\nDetails: ${errorData.message}`);
                 }
             } catch (error) {
                 console.error('Error:', error);

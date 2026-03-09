@@ -40,6 +40,10 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
+    public Optional<Student> getStudentByRollNumber(String rollNumber) {
+        return studentRepository.findByRollNumber(rollNumber);
+    }
+
     public Student saveStudent(Student student) {
         return studentRepository.save(student);
     }
@@ -72,12 +76,18 @@ public class StudentService {
         document.add(new Paragraph("School of Engineering").setTextAlignment(TextAlignment.CENTER).setFontSize(14));
         document.add(new Paragraph("\n"));
 
-        // Add Photo if exists
+        // Add Photo if exists and file actually exists on disk
         if (student.getPhotoPath() != null) {
-            byte[] photoBytes = Files.readAllBytes(Paths.get(student.getPhotoPath()));
-            Image photo = new Image(ImageDataFactory.create(photoBytes));
-            photo.setWidth(100).setHeight(100);
-            document.add(photo.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER));
+            Path photoPath = Paths.get(student.getPhotoPath());
+            if (Files.exists(photoPath)) {
+                byte[] photoBytes = Files.readAllBytes(photoPath);
+                Image photo = new Image(ImageDataFactory.create(photoBytes));
+                photo.setWidth(100).setHeight(100);
+                document.add(photo.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER));
+            } else {
+                document.add(new Paragraph("[Photo Not Found]").setTextAlignment(TextAlignment.CENTER)
+                        .setFontColor(com.itextpdf.kernel.colors.ColorConstants.RED));
+            }
         }
 
         document.add(new Paragraph("Name: " + student.getFullName()));
